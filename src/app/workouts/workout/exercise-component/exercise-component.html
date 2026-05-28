@@ -1,0 +1,56 @@
+<div class="exercise">
+    <header>
+        <div class="name">
+            <h1>{{ exercise.excercise_type.name }}</h1>
+            <button>e</button>
+        </div>
+        <button (click)="onDeleteExercise()">x</button>
+    </header>
+    @for (item of exercise.details; track $index) {
+        @if (isEditing === item.id) {
+            <form (ngSubmit)="submitEdit()" name="edit">
+                <section>
+                    <div class="list">
+                        <h2>Sets:</h2>
+                        <input type="number" id="Sets" name="Sets" [(ngModel)]="enteredSets" [value]="1">
+                    </div>
+                    <div class="list">
+                        <h2>Reps:</h2>
+                        <input type="number" id="Reps" name="Reps" [(ngModel)]="enteredReps">
+                    </div>
+                    <div class="list">
+                        <h2>Weight:</h2>
+                        <input type="number" id="Weight" name="Weight" [(ngModel)]="enteredWeight">
+                    </div>
+                    <div class="buttons">
+                        <button type="submit" class="editSet" >s</button>
+                        <button type="button" class="deleteSet" (click)="onDeleteDetail(item.id)">x</button>
+                    </div>
+                </section>
+            </form>
+        }
+        @else {
+            <div class="element">
+                <section>
+                    <div class="list">
+                        <h2>Sets:</h2>
+                        <h2>{{ item.sets }}</h2>
+                    </div>
+                    <div class="list">
+                        <h2>Reps:</h2>
+                        <h2>{{ item.reps }}</h2>
+                    </div>
+                    <div class="list">
+                        <h2>Weight:</h2>
+                        <h2>{{ item.weight }}</h2>
+                    </div>
+                    <div class="buttons">
+                        <button class="editSet" (click)="clickEdit(item.id)">e</button>
+                        <button class="deleteSet" (click)="onDeleteDetail(item.id)">x</button>
+                    </div>
+                </section>
+            </div>
+        }
+    }
+    <button class="addSet" (click)="onAdd()"> + </button>
+</div>

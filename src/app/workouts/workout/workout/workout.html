@@ -1,0 +1,33 @@
+<section id="workout">
+    <header>
+        <div class="header">
+            <h1>Muscle Groups:</h1>
+        </div>
+        <h2>
+            <time id="date">{{workout.date | date:'short':'UTC'}}</time>
+        </h2> 
+    </header>
+    <div class="groups">
+        @for (item of workout.main_muscle_groups; track $index) {
+            @if (selected) {
+                <h3 (click)="removeGroup(item)">{{item}}</h3>
+            } @else {
+                <h3>{{item}}</h3>
+            }
+        }
+    @if (selected) {
+        <select [ngModel] = "selectedGroup" (ngModelChange)="addGroup($event)" name="sel2">
+                @for(item of MGroups; track $index){
+                    <option [value]=item>{{item}}</option>
+                }
+        </select>
+    }
+    </div>
+    @if (selected) {
+        @for (item of workout.exersizes; track $index) {
+            <app-exercise-component [exercise]="item" (delete)="deleteExercise(item)"/>
+        }
+        <button (click)="addExercise()">+</button>
+    }
+    
+</section>
