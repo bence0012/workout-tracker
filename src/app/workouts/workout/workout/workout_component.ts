@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Exersize, WorkoutData } from '../../types';
+import { Exercize, WorkoutData } from '../../types';
 import { DatePipe } from '@angular/common';
 import { ExerciseComponent } from '../exercise-component/exercise-component';
 
@@ -20,12 +20,12 @@ export class WorkoutComponent {
   MGroups = Mgroups
   selectedGroup = ""
 
-  deleteExercise(ex: Exersize){
-    this.workout.exersizes = this.workout.exersizes.filter(ob => ob != ex)
+  deleteExercise(ex: Exercize){
+    this.workout.exercizes = this.workout.exercizes.filter(ob => ob != ex)
   }
 
   addExercise(){
-    this.workout.exersizes.push({
+    this.workout.exercizes.push({
       excercise_type : {
         name : '',
         image: '',

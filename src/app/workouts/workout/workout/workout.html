@@ -24,7 +24,7 @@
     }
     </div>
     @if (selected) {
-        @for (item of workout.exersizes; track $index) {
+        @for (item of workout.exercizes; track $index) {
             <app-exercise-component [exercise]="item" (delete)="deleteExercise(item)"/>
         }
         <button (click)="addExercise()">+</button>

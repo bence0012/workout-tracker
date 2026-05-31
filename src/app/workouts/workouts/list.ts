@@ -4,7 +4,7 @@ export const workouts = [
   {
     id: '1',
     date: Date.now(),
-    exersizes: [
+    exercizes: [
       {
         excercise_type: 
         {
@@ -57,7 +57,7 @@ export const workouts = [
   {
     id: '2',
     date: Date.now(),
-    exersizes: [
+    exercizes: [
       {
         excercise_type: 
         {
@@ -109,7 +109,7 @@ export const workouts = [
   {
     id: '13',
     date: Date.now(),
-    exersizes: [
+    exercizes: [
       {
         excercise_type: 
         {
@@ -161,7 +161,7 @@ export const workouts = [
   {
     id: '3',
     date: Date.now(),
-    exersizes: [
+    exercizes: [
       {
         excercise_type: 
         {
@@ -213,7 +213,7 @@ export const workouts = [
   {
     id: '4',
     date: Date.now(),
-    exersizes: [
+    exercizes: [
       {
         excercise_type: 
         {
@@ -265,7 +265,7 @@ export const workouts = [
   {
     id: '5',
     date: Date.now(),
-    exersizes: [
+    exercizes: [
       {
         excercise_type: 
         {
@@ -317,7 +317,7 @@ export const workouts = [
   {
     id: '6',
     date: Date.now(),
-    exersizes: [
+    exercizes: [
       {
         excercise_type: 
         {
@@ -369,7 +369,7 @@ export const workouts = [
   {
     id: '8',
     date: Date.now(),
-    exersizes: [
+    exercizes: [
       {
         excercise_type: 
         {
@@ -421,7 +421,7 @@ export const workouts = [
   {
     id: '9',
     date: Date.now(),
-    exersizes: [
+    exercizes: [
       {
         excercise_type: 
         {
@@ -473,7 +473,7 @@ export const workouts = [
   {
     id: '10',
     date: Date.now(),
-    exersizes: [
+    exercizes: [
       {
         excercise_type: 
         {
@@ -525,7 +525,7 @@ export const workouts = [
   {
     id: '11',
     date: Date.now(),
-    exersizes: [
+    exercizes: [
       {
         excercise_type: 
         {

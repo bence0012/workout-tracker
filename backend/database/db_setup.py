@@ -1,7 +1,7 @@
 import sqlalchemy
 
-from model.model import Base
+from model import Base
 
-DATABASE_URL = "sqlite:"
+DATABASE_URL = "postgresql://myuser:mypassword@localhost/mydatabase"
 engine = sqlalchemy.create_engine(DATABASE_URL)
 Base.metadata.create_all(bind=engine)

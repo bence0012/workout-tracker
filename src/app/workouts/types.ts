@@ -7,7 +7,7 @@ export class Workout{
         this.data = {
             id: id,
             date: Date.now(),
-            exersizes: [],
+            exercizes: [],
             main_muscle_groups: [],
             notes: ""
         }
@@ -22,13 +22,13 @@ export class Workout{
 export type WorkoutData = {
     id: string;
     date: number;
-    exersizes: Array<Exersize>;
+    exercizes: Array<Exercize>;
     main_muscle_groups: Array<string>;
     notes: string;
 }
 
-export type Exersize = {
-    excercise_type: ExersizeType;
+export type Exercize = {
+    excercise_type: ExercizeType;
     details: Array<{
         id: string;
         sets: number;
@@ -37,7 +37,7 @@ export type Exersize = {
     }>
 }
 
-export type ExersizeType = {
+export type ExercizeType = {
     name: string;
     image: string;
     muscle_group: string;
