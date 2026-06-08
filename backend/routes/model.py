@@ -6,22 +6,22 @@ from pydantic import BaseModel, ConfigDict
 class WorkoutModel(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: int
+    id: Optional[int]
     date: datetime
     notes: Optional[str]
-    main_muscle_groups: str
-    exercizes: List["ExercizeModel"]
+    main_muscle_groups: List['MuscleGroupModel']
+    exercises: List["ExerciseModel"]
 
 
-class ExercizeModel(BaseModel):
+class ExerciseModel(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
-    exercize_type: "ExercizeTypeModel"
-    details: List["ExercizeDetailModel"]
+    exercise_type: Optional["ExerciseTypeModel"]
+    details: List["ExerciseDetailModel"]
 
 
-class ExercizeTypeModel(BaseModel):
+class ExerciseTypeModel(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
@@ -30,10 +30,16 @@ class ExercizeTypeModel(BaseModel):
     muscle_group: str
 
 
-class ExercizeDetailModel(BaseModel):
+class ExerciseDetailModel(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
     sets: int
     reps: int
     weight: int
+
+
+class MuscleGroupModel(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    name: str

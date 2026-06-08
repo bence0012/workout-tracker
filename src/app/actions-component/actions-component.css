@@ -1,0 +1,23 @@
+section{
+    background-color: #4d00dd;
+    background: linear-gradient(
+    to bottom,
+    #2c0a4c,
+    #450d80
+    );
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+button {
+
+    font: inherit;
+    cursor: pointer;
+    background-color: #9965dd;
+    border-radius: 4px;
+    border: none;
+    padding: 0rem 0.5rem;
+    margin-right: 10px;
+}

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Exercize } from '../../types';
+import { Exercise } from '../../types';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -10,7 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './exercise-component.css',
 })
 export class ExerciseComponent {
-  @Input({required: true}) exercise! : Exercize;
+  @Input({required: true}) exercise! : Exercise;
   @Output() delete = new EventEmitter<void>();
 
   isEditing: string = "none";

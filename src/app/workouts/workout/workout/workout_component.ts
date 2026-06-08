@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { Exercize, WorkoutData } from '../../types';
+import { Exercise, MuscleGroup, WorkoutData } from '../../types';
 import { DatePipe } from '@angular/common';
 import { ExerciseComponent } from '../exercise-component/exercise-component';
 
-import { Mgroups } from './groups';
+
 import { FormsModule } from "@angular/forms";
+import { BackendService } from '../../../backend-service';
 
 
 @Component({
@@ -15,34 +16,28 @@ import { FormsModule } from "@angular/forms";
 })
 export class WorkoutComponent {
   @Input({required:true}) workout!: WorkoutData;
-  @Input({ required: true}) selected!: boolean
-
-  MGroups = Mgroups
+  @Input({required:true}) selected!: boolean
+  MGroups!: MuscleGroup[]
   selectedGroup = ""
 
-  deleteExercise(ex: Exercize){
-    this.workout.exercizes = this.workout.exercizes.filter(ob => ob != ex)
+  constructor(private backend: BackendService){
+    this.MGroups = backend.muscleGroups
+  }
+
+  deleteExercise(ex: Exercise){
+    this.backend.remove_exercise_from_workout(ex, this.workout)
   }
 
   addExercise(){
-    this.workout.exercizes.push({
-      excercise_type : {
-        name : '',
-        image: '',
-        muscle_group: ''
-      },
-      details: []
-    })
+    this.backend.add_new_exercise_to_workout(this.workout)
   }
 
-  addGroup(group:string){
-    if(this.workout.main_muscle_groups.indexOf(group) === -1){
-      this.workout.main_muscle_groups.push(group)
-    }
+  addGroup(group: MuscleGroup){
+    this.backend.add_muscle_group_to_workout(group, this.workout)
   }
 
-  removeGroup(item: string){
-    this.workout.main_muscle_groups = this.workout.main_muscle_groups.filter(ob => ob != item)
+  removeGroup(group: MuscleGroup){
+    this.backend.remove_muscle_group_from_workout(group, this.workout)
   }
 
 }

@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { ApplicationRef, Component, signal, Signal,  } from '@angular/core';
 import { WorkoutComponent } from '../workout/workout/workout_component';
-import { workouts } from './list'; 
-import { Workout } from '../types';
+import { MuscleGroup, WorkoutData } from '../types';
+import { HttpClient } from '@angular/common/http';
+import { workerData } from 'node:worker_threads';
+import { FormField } from "@angular/forms/signals";
+import { BackendService } from '../../backend-service';
+
 
 
 
@@ -11,18 +15,18 @@ import { Workout } from '../types';
   templateUrl: './workouts.html',
   styleUrl: './workouts.css',
 })
-export class WorkoutsComponent {
-
-  workouts = workouts
+export class WorkoutsComponent {  
+  workouts!: WorkoutData[]
   isAddingWorkout = false
   selectedWorkoutId? : string
 
-  newWorkout(){
-    let maxIndex = Math.max(...this.workouts.map(ob => parseInt(ob.id)));
-    var work: Workout = new Workout(String(maxIndex+1));
-    this.workouts.unshift(work.getData())
-    this.selectedWorkoutId = String(maxIndex+1)
+  constructor(private backend: BackendService){
+    this.workouts = backend.workouts
+  }
 
+  newWorkout(){
+    let id = this.backend.add_workout()
+    this.selectedWorkoutId = id
   }
 
   clickWorkout(id: string){

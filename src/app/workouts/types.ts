@@ -6,8 +6,8 @@ export class Workout{
     constructor(id: string){
         this.data = {
             id: id,
-            date: Date.now(),
-            exercizes: [],
+            date: new Date(),
+            exercises: [],
             main_muscle_groups: [],
             notes: ""
         }
@@ -21,14 +21,15 @@ export class Workout{
 
 export type WorkoutData = {
     id: string;
-    date: number;
-    exercizes: Array<Exercize>;
-    main_muscle_groups: Array<string>;
+    date: Date;
+    exercises: Array<Exercise>;
+    main_muscle_groups: Array<{name: string}>;
     notes: string;
 }
 
-export type Exercize = {
-    excercise_type: ExercizeType;
+export type Exercise = {
+    id: string
+    exercise_type: ExerciseType | null;
     details: Array<{
         id: string;
         sets: number;
@@ -37,18 +38,13 @@ export type Exercize = {
     }>
 }
 
-export type ExercizeType = {
+export type ExerciseType = {
+    id: string;
     name: string;
     image: string;
     muscle_group: string;
 }
 
-export enum MuscleGroup {
-    back = "Back",
-    chest = "Chest",
-    arm = "Arm",
-    shoulder = "Shoulder",
-    leg = "Leg",
-    belly= "Belly",
-    default = ""
+export type MuscleGroup = {
+    name: string;
 }

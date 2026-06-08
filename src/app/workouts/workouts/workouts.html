@@ -5,9 +5,8 @@
             <button (click)="newWorkout()"> Add workout </button>
         </menu>
     </header>
-
     <ul>
-        @for (item of workouts; track workouts) {
+        @for (item of workouts; track item) {
             <li>
                 <app-workout (click)="clickWorkout(item.id)" [workout]="item" [selected]="selectedWorkoutId===item.id"/>
             </li>

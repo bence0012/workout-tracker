@@ -4,11 +4,19 @@ from typing import Optional
 from sqlalchemy.orm import DeclarativeBase, Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from sqlalchemy import DateTime, ForeignKey, func
+from sqlalchemy import Column, DateTime, ForeignKey, Table, func
 
 
 class Base(DeclarativeBase):
     pass
+
+
+workout_groups = Table(
+    "workout_groups",
+    Base.metadata,
+    Column("workouts", ForeignKey("workout.id"), primary_key=True),
+    Column("groups", ForeignKey("muscle_group.name"), primary_key=True),
+)
 
 
 class Workout(Base):
@@ -17,43 +25,54 @@ class Workout(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     date: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     notes: Mapped[Optional[str]]
-    main_muscle_groups: Mapped[str]
 
-    exercizes: Mapped[List["Exercize"]] = relationship(back_populates="workout")
+    main_muscle_groups: Mapped[List['MuscleGroup']] = relationship(secondary=workout_groups, back_populates="workouts")
+
+    exercises: Mapped[List["Exercise"]] = relationship(back_populates="workout")
 
 
-class Exercize(Base):
-    __tablename__ = "exercize"
+class Exercise(Base):
+    __tablename__ = "exercise"
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
-    exercize_type: Mapped["ExercizeType"] = relationship(back_populates="exercizes")
-    exercize_type_id = mapped_column(ForeignKey("exercize_type.id"))
+    exercise_type: Mapped["ExerciseType"] = relationship(back_populates="exercises")
+    exercise_type_id = mapped_column(ForeignKey("exercise_type.id"))
 
-    details: Mapped[List["ExercizeDetail"]] = relationship(back_populates="exercize")
+    details: Mapped[List["ExerciseDetail"]] = relationship(back_populates="exercise")
 
     workout_id = mapped_column(ForeignKey("workout.id"))
-    workout: Mapped[Workout] = relationship(back_populates="exercizes")
+    workout: Mapped[Workout] = relationship(back_populates="exercises")
 
 
-class ExercizeType(Base):
-    __tablename__ = "exercize_type"
+class ExerciseType(Base):
+    __tablename__ = "exercise_type"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
     image: Mapped[str]
     muscle_group: Mapped[str]
 
-    exercizes: Mapped[List[Exercize]] = relationship(back_populates="exercize_type", single_parent=True)
+    exercises: Mapped[List[Exercise]] = relationship(back_populates="exercise_type", single_parent=True)
 
 
-class ExercizeDetail(Base):
-    __tablename__ = "exercize_detail"
+class ExerciseDetail(Base):
+    __tablename__ = "exercise_detail"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     sets: Mapped[int]
     reps: Mapped[int]
     weight: Mapped[int]
 
-    exercize_id = mapped_column(ForeignKey("exercize.id"))
-    exercize: Mapped[Exercize] = relationship(back_populates="details")
+    exercise_id = mapped_column(ForeignKey("exercise.id"))
+    exercise: Mapped[Exercise] = relationship(back_populates="details")
+
+
+class MuscleGroup(Base):
+    __tablename__ = "muscle_group"
+
+    name: Mapped[str] = mapped_column(primary_key=True)
+
+    workouts: Mapped[List[Workout]] = relationship(secondary=workout_groups, back_populates="main_muscle_groups")
+
+

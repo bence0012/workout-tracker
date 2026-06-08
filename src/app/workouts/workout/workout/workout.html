@@ -10,21 +10,21 @@
     <div class="groups">
         @for (item of workout.main_muscle_groups; track $index) {
             @if (selected) {
-                <h3 (click)="removeGroup(item)">{{item}}</h3>
+                <h3 (click)="removeGroup(item)">{{item.name}}</h3>
             } @else {
-                <h3>{{item}}</h3>
+                <h3>{{item.name}}</h3>
             }
         }
     @if (selected) {
-        <select [ngModel] = "selectedGroup" (ngModelChange)="addGroup($event)" name="sel2">
+        <select [ngModel] = "selectedGroup" (ngModelChange)="addGroup({name: $event})" name="sel2">
                 @for(item of MGroups; track $index){
-                    <option [value]=item>{{item}}</option>
+                    <option [value]=item.name>{{item.name}}</option>
                 }
         </select>
     }
     </div>
     @if (selected) {
-        @for (item of workout.exercizes; track $index) {
+        @for (item of workout.exercises; track $index) {
             <app-exercise-component [exercise]="item" (delete)="deleteExercise(item)"/>
         }
         <button (click)="addExercise()">+</button>

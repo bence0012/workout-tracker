@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header-component/header-component';
 import { WorkoutsComponent } from './workouts/workouts/workouts_component';
+import { ActionsComponent } from './actions-component/actions-component';
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, WorkoutsComponent],
+  imports: [HeaderComponent, WorkoutsComponent, ActionsComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

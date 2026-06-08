@@ -1,9 +1,12 @@
 <div class="exercise">
     <header>
         <div class="name">
-            <h1>{{ exercise.excercise_type.name }}</h1>
+            @if(exercise.exercise_type != null){
+            <h1>{{ exercise.exercise_type.name }}</h1>
+            }
             <button>e</button>
         </div>
+        <h1> {{ exercise.id }} </h1>
         <button (click)="onDeleteExercise()">x</button>
     </header>
     @for (item of exercise.details; track $index) {
@@ -52,5 +55,7 @@
             </div>
         }
     }
-    <button class="addSet" (click)="onAdd()"> + </button>
+    @if(exercise.exercise_type != null){
+        <button class="addSet" (click)="onAdd()"> + </button>
+    }
 </div>
