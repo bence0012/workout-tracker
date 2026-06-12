@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class WorkoutModel(BaseModel):
@@ -17,7 +17,7 @@ class ExerciseModel(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
-    exercise_type: Optional["ExerciseTypeModel"]
+    exercise_type: Optional["ExerciseTypeModel"] = Field()
     details: List["ExerciseDetailModel"]
 
 

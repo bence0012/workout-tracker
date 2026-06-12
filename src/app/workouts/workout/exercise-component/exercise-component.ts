@@ -1,11 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Exercise } from '../../types';
+import { Exercise, ExerciseDetail, ExerciseType } from '../../types';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ExerciseTypesComponent } from '../exercise-types-component/exercise-types-component';
+import { BackendService } from '../../../backend-service';
 
 
 @Component({
   selector: 'app-exercise-component',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, ExerciseTypesComponent],
   templateUrl: './exercise-component.html',
   styleUrl: './exercise-component.css',
 })
@@ -18,7 +20,7 @@ export class ExerciseComponent {
   enteredReps = '';
   enteredSets = '';
 
-  constructor(){
+  constructor(private backend: BackendService){
     
   }
 
@@ -31,37 +33,31 @@ export class ExerciseComponent {
   }
 
   submitEdit(){
-    let exer=this.exercise.details.filter(ob => ob.id === this.isEditing)[0]
-    let index=this.exercise.details.indexOf(exer)
-    let asd = {
-      id: this.isEditing,
-      weight: Number(this.enteredWeight),
-      reps: Number(this.enteredReps), 
-      sets: Number(this.enteredSets)
-    }
-    this.exercise.details[index]=asd
+    let detail=this.exercise.details.filter(ob => ob.id === this.isEditing)[0]
+    detail.weight = Number(this.enteredWeight),
+    detail.reps = Number(this.enteredReps), 
+    detail.sets = Number(this.enteredSets)
+    this.backend.update_detail(detail)
     this.isEditing="none";
   }
 
   onAdd(){
-    let maxIndex = String(Math.max(...this.exercise.details.map(ob => parseInt(ob.id)))+1);
-    this.exercise.details.push({
-      id: maxIndex,
-      sets: 0,
-      reps: 0,
-      weight: 0
-    })
-    this.isEditing=maxIndex
+    let id = this.backend.add_detail_to_exercise(this.exercise)
+    this.isEditing=id
   }
 
-  onDeleteDetail(id: string){
-    this.exercise.details = this.exercise.details.filter(ob => ob.id != id)
-    if(this.isEditing === id){
+  onDeleteDetail(detail: ExerciseDetail){
+    this.backend.remove_detail_from_exercise(this.exercise, detail)
+    if(this.isEditing === detail.id){
       this.isEditing="none"
     }    
   }
 
   onDeleteExercise(){
     this.delete.emit()
+  }
+
+  changeType(exerciseType: ExerciseType){
+    this.backend.change_type_of_exercise(this.exercise, exerciseType)
   }
 }

@@ -1,0 +1,5 @@
+<select [ngModel] = "getType()" (ngModelChange)="addType($event)" name="sel2">
+    @for(item of types; track $index){
+        <option (value)=item.name>{{ item.name }}</option>
+    }
+</select>

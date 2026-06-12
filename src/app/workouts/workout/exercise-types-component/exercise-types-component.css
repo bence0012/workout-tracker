@@ -1,0 +1,9 @@
+select{
+    margin: 5px;
+    border-radius: 4px;
+    color: white;
+}
+
+option{
+    color: black;
+}

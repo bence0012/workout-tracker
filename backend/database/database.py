@@ -6,7 +6,7 @@ import sqlalchemy
 from sqlalchemy import select, desc, asc
 from sqlalchemy.orm import Session, sessionmaker
 
-from ..routes.model import ExerciseModel, MuscleGroupModel, WorkoutModel
+from ..routes.model import ExerciseDetailModel, ExerciseModel, ExerciseTypeModel, MuscleGroupModel, WorkoutModel
 
 from .model import Base, ExerciseDetail, Exercise, ExerciseType, Workout, MuscleGroup
 
@@ -72,8 +72,11 @@ class Database:
 
     def remove_exercise(self, exercise_id: int):
         with self.session() as sess:
-            sess.query(Exercise).filter(
-                Exercise.id == exercise_id).delete(synchronize_session=False)
+            asd = sess.query(Exercise).get(exercise_id)
+            if asd is not None:
+                for detail in asd.details:
+                    sess.delete(detail)
+                sess.delete(asd)
 
     def cereate_exercise_type(self, id: int, name: str, image: str, muscle_group: str):
         with self.session() as sess:
@@ -82,6 +85,14 @@ class Database:
                                          image=image,
                                          muscle_group=muscle_group)
             sess.add(exercise_type)
+
+    def change_type_of_exercise(self, exercise_id: int, type_id: int):
+        with self.session() as sess:
+            exercise = sess.query(Exercise).get(exercise_id)
+            exerciseType = sess.query(ExerciseType).get(type_id)
+            if exercise is None or exerciseType is None:
+                return None
+            exercise.exercise_type = exerciseType
 
     def cereate_exercise_detail(self, sets: int, reps: int, weight: int, exercise_id: int):
         with self.session() as sess:
@@ -102,6 +113,29 @@ class Database:
 
     def get_all_exercise_types(self):
         with self.session() as sess:
-            return sess.scalars(select(ExerciseType)).all()
+            querry = select(ExerciseType).order_by(asc('muscle_group'), asc('name'))
+            types = sess.scalars(querry).unique().all()
+            return TypeAdapter(list[ExerciseTypeModel]).validate_python(types, from_attributes=True)
+
+    def add_exercise_detail(self, exercise_id: int, detail: ExerciseDetailModel):
+        with self.session() as sess:
+            exercise = sess.query(Exercise).get(exercise_id)
+            if exercise is not None:
+                exercise.details.append(ExerciseDetail(**detail.model_dump()))
+
+    def delete_detail(self, detail_id: int):
+        with self.session() as sess:
+            detail = sess.query(ExerciseDetail).get(detail_id)
+            if detail is not None:
+                sess.delete(detail)
+
+    def change_detail(self, detail_model: ExerciseDetailModel):
+        with self.session() as sess:
+            detail = sess.query(ExerciseDetail).get(detail_model.id)
+            if detail is not None:
+                detail.weight = detail_model.weight
+                detail.reps = detail_model.reps
+                detail.sets = detail_model.sets
+
 
 db = Database()

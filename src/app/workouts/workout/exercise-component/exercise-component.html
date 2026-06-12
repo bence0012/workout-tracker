@@ -1,12 +1,8 @@
 <div class="exercise">
     <header>
         <div class="name">
-            @if(exercise.exercise_type != null){
-            <h1>{{ exercise.exercise_type.name }}</h1>
-            }
-            <button>e</button>
+            <app-exercise-types-component  [exerciseType]="exercise.exercise_type" (addTypeToExercise)="changeType($event)"/>
         </div>
-        <h1> {{ exercise.id }} </h1>
         <button (click)="onDeleteExercise()">x</button>
     </header>
     @for (item of exercise.details; track $index) {
@@ -27,7 +23,7 @@
                     </div>
                     <div class="buttons">
                         <button type="submit" class="editSet" >s</button>
-                        <button type="button" class="deleteSet" (click)="onDeleteDetail(item.id)">x</button>
+                        <button type="button" class="deleteSet" (click)="onDeleteDetail(item)">x</button>
                     </div>
                 </section>
             </form>
@@ -49,7 +45,7 @@
                     </div>
                     <div class="buttons">
                         <button class="editSet" (click)="clickEdit(item.id)">e</button>
-                        <button class="deleteSet" (click)="onDeleteDetail(item.id)">x</button>
+                        <button class="deleteSet" (click)="onDeleteDetail(item)">x</button>
                     </div>
                 </section>
             </div>

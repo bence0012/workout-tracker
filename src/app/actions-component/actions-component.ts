@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, outputBinding } from '@angular/core';
+import { MatDialog  } from '@angular/material/dialog'
+import { NewExerciseTypeComponent } from './new-exercise-type-component/new-exercise-type-component';
 
 @Component({
   selector: 'app-actions-component',
@@ -6,4 +8,20 @@ import { Component } from '@angular/core';
   templateUrl: './actions-component.html',
   styleUrl: './actions-component.css',
 })
-export class ActionsComponent {}
+export class ActionsComponent {
+
+  constructor(private dialog: MatDialog){}
+
+  onNewExerciseType(){
+    let dialogRef = this.dialog.open(NewExerciseTypeComponent, {
+      height: '200px',
+      width: '400px',
+    });
+    dialogRef.componentInstance.close.subscribe(undefined => {this.onCancel()})
+  }
+
+  onCancel(){
+    this.dialog.closeAll()
+  }
+}
+

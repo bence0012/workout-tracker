@@ -74,5 +74,3 @@ class MuscleGroup(Base):
     name: Mapped[str] = mapped_column(primary_key=True)
 
     workouts: Mapped[List[Workout]] = relationship(secondary=workout_groups, back_populates="main_muscle_groups")
-
-

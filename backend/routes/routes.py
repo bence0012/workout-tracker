@@ -1,11 +1,8 @@
 from fastapi import APIRouter
-from pydantic import TypeAdapter
-from pydantic.json import pydantic_encoder
-import json
 
 from ..database.database import db
-from .. database.model import MuscleGroup, Workout
-from .model import ExerciseModel, ExerciseTypeModel, MuscleGroupModel, WorkoutModel
+from .. database.model import Workout
+from .model import ExerciseDetailModel, ExerciseModel, ExerciseTypeModel, MuscleGroupModel, WorkoutModel
 
 Router = APIRouter()
 
@@ -20,6 +17,12 @@ def get_wourkouts():
 def get_muscle_groups():
     muscle_groups = db.get_all_muscle_groups()
     return muscle_groups
+
+
+@Router.get('/exercise_types/')
+def get_exercise_types():
+    types = db.get_all_exercise_types()
+    return types
 
 
 @Router.post('/workouts/')
@@ -51,5 +54,25 @@ def delete_exercise(exercise_id: int):
 
 
 @Router.post('/exercise_type/')
-def create_excercise_type(type: ExerciseTypeModel):
+def post_excercise_type(type: ExerciseTypeModel):
     db.cereate_exercise_type(**type.model_dump())
+
+
+@Router.patch('/exercise/{exercise_id}/exercise_type/{exercise_type_id}')
+def patch_exercise_type(exercise_id: int, exercise_type_id: int):
+    db.change_type_of_exercise(exercise_id, exercise_type_id)
+
+
+@Router.post('/exercise/{exercise_id}/detail/')
+def post_excercise_detail(exercise_id: int, detail: ExerciseDetailModel):
+    db.add_exercise_detail(exercise_id, detail)
+
+
+@Router.put('/detail/')
+def put_excercise_detail(detail: ExerciseDetailModel):
+    db.change_detail(detail)
+
+
+@Router.delete('/detail/{detail_id}')
+def delete_excercise_detail(detail_id: int):
+    db.delete_detail(detail_id)

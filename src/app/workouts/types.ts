@@ -30,12 +30,7 @@ export type WorkoutData = {
 export type Exercise = {
     id: string
     exercise_type: ExerciseType | null;
-    details: Array<{
-        id: string;
-        sets: number;
-        reps: number;
-        weight: number;
-    }>
+    details: Array<ExerciseDetail>
 }
 
 export type ExerciseType = {
@@ -43,6 +38,13 @@ export type ExerciseType = {
     name: string;
     image: string;
     muscle_group: string;
+}
+
+export type ExerciseDetail ={
+    id: string,
+    sets: number,
+    reps: number,
+    weight: number
 }
 
 export type MuscleGroup = {

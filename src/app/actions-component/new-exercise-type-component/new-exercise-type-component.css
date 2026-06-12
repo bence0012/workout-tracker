@@ -1,0 +1,61 @@
+section{
+    background-color: #4d00dd;
+    background: linear-gradient(
+        to bottom,
+        #2c0a4c,
+        #450d80
+    );
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+    height: 100%;
+    border-width: 3px;
+    border-color: black;
+    padding: 5px;
+}
+
+h1{
+    font: inherit;
+    font-size: x-large;
+    margin: 10px;
+}
+
+h2{
+    margin-right: 5px;
+}
+
+input, select{
+    border-width: 2px;
+    border-color: black;
+    color: white;
+    width: 15rem;
+
+}
+
+option{
+    color: black;
+  background-color: #9965dd;
+
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  background-color: #9965dd;
+  border-radius: 4px;
+  border: none;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.9rem;
+  margin: 5px;
+}
+
+.input{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+    justify-content: space-between;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}

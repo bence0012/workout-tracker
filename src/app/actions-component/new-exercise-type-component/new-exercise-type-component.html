@@ -1,0 +1,26 @@
+<section>
+    <h1>New Exercise Type</h1>
+    <form action="" (ngSubmit)="submitType()">
+        <div class="formBody">
+            <div class="input">
+                <h2>Name: </h2>
+                <input [(ngModel)]="enteredName" type="text" tabindex="-1" name="name">
+            </div>
+            <div class="input">
+                <h2>Muscle group: </h2>
+                <select name="muscle groups" id="" tabindex="-1" [(ngModel)] = "selectedGroup">
+                    <option value="no">Select muscle group here</option>
+                    @for (item of muscleGroups; track $index) {
+                        <option (value)="item.name">{{ item.name }}</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="buttons">
+            <button type="cancel" (click)="onCancel()">Cancel</button>
+            <button type="submit">Submit</button>
+        </div>
+        
+    </form>
+
+</section>
