@@ -18,24 +18,6 @@ h1{
     margin: 10px;
 }
 
-h2{
-    margin-right: 5px;
-}
-
-input, select{
-    border-width: 2px;
-    border-color: black;
-    color: white;
-    width: 15rem;
-
-}
-
-option{
-    color: black;
-  background-color: #9965dd;
-
-}
-
 button {
   font: inherit;
   cursor: pointer;
@@ -47,21 +29,33 @@ button {
   margin: 5px;
 }
 
-.input{
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 5px;
-    justify-content: space-between;
-}
-
-.buttons{
+.component{
     display: flex;
     flex-direction: row;
     justify-content: end;
+}
+
+select{
+    border-width: 2px;
+    border-color: black;
+    color: white;
+    width: 100%;
+    justify-content: end;
+}
+
+option{
+    color: black;
+    background-color: #9965dd;
+
 }
 
 header{
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
 }

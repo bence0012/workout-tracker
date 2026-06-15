@@ -1,0 +1,19 @@
+<section>
+    <header>
+        <h1>Delete Exercise Type</h1>
+    </header>
+        <div class="component">
+            <select name="exercise types" id="" tabindex="-1" [(ngModel)] = "selectedTypeId">
+                <option value="no">Select exercise type here</option>
+                @for (item of exerciseTypes; track $index) {
+                    <option [value]="item.id">{{ item.name }}</option>
+                }
+            </select>
+        </div>
+
+        <div class="component">
+            <button (click)="onCancel()">Cancel</button>
+            <button (click)="onSubmit()">Submit</button>
+        </div>
+    
+</section>

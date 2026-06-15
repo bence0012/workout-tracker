@@ -1,4 +1,5 @@
-<section id="tasks">
+
+<section id="tasks" >
     <header>
         <h2>My workouts</h2>
         <menu>
@@ -8,7 +9,7 @@
     <ul>
         @for (item of workouts; track item) {
             <li>
-                <app-workout (click)="clickWorkout(item.id)" [workout]="item" [selected]="selectedWorkoutId===item.id"/>
+                <app-workout (click)="clickWorkout(item.id)" [types]="types" [workout]="item" [selected]="selectedWorkoutId===item.id"/>
             </li>
         }
     </ul>

@@ -13,6 +13,7 @@ import { BackendService } from '../../../backend-service';
 })
 export class ExerciseComponent {
   @Input({required: true}) exercise! : Exercise;
+  @Input({required: true}) types!: ExerciseType[]
   @Output() delete = new EventEmitter<void>();
 
   isEditing: string = "none";
@@ -20,9 +21,7 @@ export class ExerciseComponent {
   enteredReps = '';
   enteredSets = '';
 
-  constructor(private backend: BackendService){
-    
-  }
+  constructor(private backend: BackendService){}
 
   clickEdit(id: string){
     this.isEditing=id;

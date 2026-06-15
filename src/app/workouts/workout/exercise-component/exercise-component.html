@@ -1,7 +1,7 @@
 <div class="exercise">
     <header>
         <div class="name">
-            <app-exercise-types-component  [exerciseType]="exercise.exercise_type" (addTypeToExercise)="changeType($event)"/>
+            <app-exercise-types-component  [exerciseType]="exercise.exercise_type" [types]="types" (addTypeToExercise)="changeType($event)"/>
         </div>
         <button (click)="onDeleteExercise()">x</button>
     </header>

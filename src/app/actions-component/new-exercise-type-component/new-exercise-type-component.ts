@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { BackendService } from '../../backend-service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MuscleGroup } from '../../workouts/types';
+import { ExerciseType, MuscleGroup } from '../../workouts/types';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { MuscleGroup } from '../../workouts/types';
   styleUrl: './new-exercise-type-component.css',
 })
 export class NewExerciseTypeComponent {
-  @Output() close = new EventEmitter()
+  @Output() close = new EventEmitter<ExerciseType[]>()
   enteredName = ''
   selectedGroup = 'no'
 
@@ -24,11 +24,11 @@ export class NewExerciseTypeComponent {
   submitType(){
     if (this.selectedGroup != 'no'){
       this.backend.create_new_exercise_type(this.enteredName, this.selectedGroup)
-      this.close.emit()
+      this.close.emit(this.backend.exerciseTypes)
     }
   }
 
   onCancel(){
-    this.close.emit()
+    this.close.emit(this.backend.exerciseTypes)
   }
 }

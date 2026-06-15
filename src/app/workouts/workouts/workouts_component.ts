@@ -1,9 +1,6 @@
-import { ApplicationRef, Component, signal, Signal,  } from '@angular/core';
+import { Component, Input  } from '@angular/core';
 import { WorkoutComponent } from '../workout/workout/workout_component';
-import { MuscleGroup, WorkoutData } from '../types';
-import { HttpClient } from '@angular/common/http';
-import { workerData } from 'node:worker_threads';
-import { FormField } from "@angular/forms/signals";
+import { ExerciseType, WorkoutData } from '../types';
 import { BackendService } from '../../backend-service';
 
 
@@ -16,6 +13,8 @@ import { BackendService } from '../../backend-service';
   styleUrl: './workouts.css',
 })
 export class WorkoutsComponent {  
+  @Input({required: true}) types!: ExerciseType[]
+
   workouts!: WorkoutData[]
   isAddingWorkout = false
   selectedWorkoutId? : string
@@ -23,13 +22,15 @@ export class WorkoutsComponent {
   constructor(private backend: BackendService){
     this.workouts = backend.workouts
   }
-
+  
   newWorkout(){
     let id = this.backend.add_workout()
     this.selectedWorkoutId = id
+    console.table(this.types)
   }
 
   clickWorkout(id: string){
     this.selectedWorkoutId=id
   }
+
 }

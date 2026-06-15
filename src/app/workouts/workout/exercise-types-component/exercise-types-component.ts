@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output } from '@angular/core';
 import { BackendService } from '../../../backend-service';
 import { ExerciseType } from '../../types';
 import { FormsModule } from '@angular/forms';
@@ -11,13 +11,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class ExerciseTypesComponent {
   @Input({required: true}) exerciseType!: ExerciseType | null
+  @Input({required: true}) types!: ExerciseType[]
   @Output() addTypeToExercise = new EventEmitter<ExerciseType>()
 
-  types: ExerciseType[]
-
-  constructor(private backend: BackendService){
-    this.types = backend.exerciseTypes
-  }
+  constructor(){}
 
   addType(type_name: string){
     let type = this.types.find(value => value.name == type_name)

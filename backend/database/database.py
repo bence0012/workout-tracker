@@ -136,6 +136,14 @@ class Database:
                 detail.weight = detail_model.weight
                 detail.reps = detail_model.reps
                 detail.sets = detail_model.sets
+     
+    def delete_type(self, type_id: int):
+        with self.session() as sess:
+            exercise_type = sess.query(ExerciseType).get(type_id)
+            if exercise_type is not None:
+                for exercise in exercise_type.exercises:
+                    exercise.exercise_type_id = None
+                sess.delete(exercise_type)
 
 
 db = Database()

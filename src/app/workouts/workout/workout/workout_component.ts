@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Exercise, MuscleGroup, WorkoutData } from '../../types';
+import { Exercise, ExerciseType, MuscleGroup, WorkoutData } from '../../types';
 import { DatePipe } from '@angular/common';
 import { ExerciseComponent } from '../exercise-component/exercise-component';
 
@@ -17,6 +17,7 @@ import { BackendService } from '../../../backend-service';
 export class WorkoutComponent {
   @Input({required:true}) workout!: WorkoutData;
   @Input({required:true}) selected!: boolean
+  @Input({required:true}) types!: ExerciseType[]
   MGroups!: MuscleGroup[]
   selectedGroup = ""
 
@@ -39,5 +40,7 @@ export class WorkoutComponent {
   removeGroup(group: MuscleGroup){
     this.backend.remove_muscle_group_from_workout(group, this.workout)
   }
+
+
 
 }

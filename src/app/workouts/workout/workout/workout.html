@@ -17,15 +17,15 @@
         }
     @if (selected) {
         <select [ngModel] = "selectedGroup" (ngModelChange)="addGroup({name: $event})" name="sel2">
-                @for(item of MGroups; track $index){
-                    <option [value]=item.name>{{item.name}}</option>
-                }
+            @for(item of MGroups; track $index){
+                <option [value]=item.name>{{item.name}}</option>
+            }
         </select>
     }
     </div>
     @if (selected) {
         @for (item of workout.exercises; track $index) {
-            <app-exercise-component [exercise]="item" (delete)="deleteExercise(item)"/>
+            <app-exercise-component [exercise]="item" [types]="types" (delete)="deleteExercise(item)"/>
         }
         <button (click)="addExercise()">+</button>
     }

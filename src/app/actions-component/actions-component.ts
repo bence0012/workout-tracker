@@ -1,6 +1,9 @@
-import { Component, outputBinding } from '@angular/core';
+import { Component, EventEmitter, Input, Output, outputBinding } from '@angular/core';
 import { MatDialog  } from '@angular/material/dialog'
 import { NewExerciseTypeComponent } from './new-exercise-type-component/new-exercise-type-component';
+import { DeleteExerciseTypeComponent } from './delete-exercise-type-component/delete-exercise-type-component';
+import { BackendService } from '../backend-service';
+import { ExerciseType } from '../workouts/types';
 
 @Component({
   selector: 'app-actions-component',
@@ -9,6 +12,8 @@ import { NewExerciseTypeComponent } from './new-exercise-type-component/new-exer
   styleUrl: './actions-component.css',
 })
 export class ActionsComponent {
+  @Input({required: true}) types!: ExerciseType[]
+  @Output() typesChanged = new EventEmitter<ExerciseType[]>()
 
   constructor(private dialog: MatDialog){}
 
@@ -17,11 +22,32 @@ export class ActionsComponent {
       height: '200px',
       width: '400px',
     });
-    dialogRef.componentInstance.close.subscribe(undefined => {this.onCancel()})
+    dialogRef.componentInstance.close.subscribe(types => {
+      this.onCancel(types)
+    })
   }
 
-  onCancel(){
+    onDeleteExerciseType(){
+    let dialogRef = this.dialog.open(DeleteExerciseTypeComponent, {
+      height: '150px',
+      width: '300px',
+      data: {
+        exerciseTypes: this.types
+      }
+    });
+    dialogRef.componentInstance.close.subscribe(types => {
+      this.onCancel(types)
+    })
+  }
+
+  onCancel(types: ExerciseType[]){
     this.dialog.closeAll()
+
+    this.typesChanged.emit(types)
+  }
+
+  onAsd(){
+    this.typesChanged.emit(this.types)
   }
 }
 

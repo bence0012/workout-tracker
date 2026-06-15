@@ -76,3 +76,8 @@ def put_excercise_detail(detail: ExerciseDetailModel):
 @Router.delete('/detail/{detail_id}')
 def delete_excercise_detail(detail_id: int):
     db.delete_detail(detail_id)
+
+
+@Router.delete('/exercise_type/{type_id}')
+def delete_excercise_type(type_id: int):
+    db.delete_type(type_id)

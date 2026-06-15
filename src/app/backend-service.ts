@@ -147,7 +147,15 @@ export class BackendService {
     this.http.post(this.backend_ip + `/exercise_type/`, newType)
               .subscribe((data) => {
                 console.log(data)
-                this.exerciseTypes.push(newType)
+                
               })
+    this.exerciseTypes.push(newType)
+  }
+  public deleteExerciseType(typeId: string){
+    this.http.delete(this.backend_ip + `/exercise_type/${typeId}`).subscribe((data) => {
+                console.log(data)
+              })
+    this.exerciseTypesData = this.exerciseTypesData.filter(ob => ob.id != typeId)
+    
   }
 }

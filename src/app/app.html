@@ -1,7 +1,7 @@
 <app-header-component />
 
 <main>
-    <div><app-actions-component /></div>
-    <app-workouts />
+    <div><app-actions-component [types]="exerciseTypes" (typesChanged)="typesChanged($event)"/></div>
+    <app-workouts [types]="exerciseTypes"/>
     <div></div>
 </main>
