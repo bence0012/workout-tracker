@@ -19,9 +19,12 @@ export class WorkoutsComponent {
   isAddingWorkout = false
   selectedWorkoutId? : string
 
-  constructor(private backend: BackendService){
-    this.workouts = backend.workouts
+  constructor(private backend: BackendService){}
+
+  ngOnInit(){
+    this.workouts = this.backend.workouts
   }
+  
   
   newWorkout(){
     let id = this.backend.add_workout()

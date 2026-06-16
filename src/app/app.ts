@@ -13,10 +13,14 @@ import { BackendService } from './backend-service';
 })
 export class App {
   protected readonly title = signal('workout-tracker');
-  exerciseTypes: ExerciseType[]
+  exerciseTypes!: ExerciseType[]
 
-  constructor(private backend: BackendService){
-    this.exerciseTypes = backend.exerciseTypes
+  constructor(private backend: BackendService){}
+
+  ngOnInit(){
+    this.backend.fetchData()
+    this.exerciseTypes = this.backend.exerciseTypes
+
   }
 
   typesChanged(newTypes: ExerciseType[]){

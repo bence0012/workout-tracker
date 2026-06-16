@@ -18,6 +18,9 @@ export class BackendService {
   private backend_ip: string = 'http://192.168.0.15:8000'
 
   constructor(private http: HttpClient){
+  }
+
+  public fetchData(){
     this.http.get<WorkoutData[]>(this.backend_ip + '/workouts/',).subscribe((data) => {
       this.workoutData = data
       this.detail_max_id = Math.max(...this.workouts.map(workout => Math.max(...workout.exercises.map(exercise => Math.max(...exercise.details.map(details => parseInt(details.id)))))))+1

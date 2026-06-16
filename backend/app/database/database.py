@@ -15,7 +15,7 @@ class Database:
 
     def __init__(self):
         self.metadata_obj = Base.metadata
-        self.engine = sqlalchemy.create_engine("postgresql://myuser:mypassword@localhost/mydatabase")
+        self.engine = sqlalchemy.create_engine("postgresql://myuser:mypassword@192.168.0.15/mydatabase")
         self.Session = sessionmaker(bind=self.engine)
 
     @contextmanager

@@ -4,7 +4,7 @@ import sqlalchemy
 
 from sqlalchemy.orm import sessionmaker
 
-from model import Base, ExerciseDetail, Exercise, ExerciseType, Workout, MuscleGroup
+from backend.app.database.model import Base, ExerciseDetail, Exercise, ExerciseType, Workout, MuscleGroup
 
 DATABASE_URL = "postgresql://myuser:mypassword@localhost/mydatabase"
 engine = sqlalchemy.create_engine(DATABASE_URL)

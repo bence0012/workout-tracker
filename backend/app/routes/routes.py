@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from ..database.database import db
-from .. database.model import Workout
+from ..database.model import Workout
 from .model import ExerciseDetailModel, ExerciseModel, ExerciseTypeModel, MuscleGroupModel, WorkoutModel
 
 Router = APIRouter()
